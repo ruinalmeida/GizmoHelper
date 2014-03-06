@@ -4,7 +4,7 @@ GizmoHelper
 GizmoHelper for Three.js
 
 
-Usage
+Usage:
 
   var gh=new THREE.GizmoHelper(container,otherControls, renderer, camera,scene);
 
