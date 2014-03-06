@@ -5,9 +5,7 @@
 
 THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) {
 
-    var matt;
-    var matt1;
-    var matt2;
+    var matt,matt1,matt2;
     var matth = [];
     var drag;
     var dragging = false;
