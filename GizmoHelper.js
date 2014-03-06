@@ -36,13 +36,12 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
         var intersects0;
         intersects1 = new Array();
-//        object[nameGizmo].active = false;
+
         FindIntersectsG(scene);
         var mindis = Infinity;
         if (pre_dragging) {
             dragging = true;
-//                    console.log("desativou2");
-//            controls[current_scene].enabled = false;
+
             helperGizmo.active = true;
         }
         else
