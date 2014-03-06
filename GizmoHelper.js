@@ -31,6 +31,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         var vx = parseInt((event.clientX - renderer.domElement.offsetParent.offsetLeft - renderer.domElement.offsetLeft)) / renderer.domElement.width;
         var vy = parseInt((event.clientY - renderer.domElement.offsetParent.offsetTop - renderer.domElement.offsetTop)) / renderer.domElement.height;
         var vector = new THREE.Vector3((vx) * 2 - 1, -(vy) * 2 + 1, -0.5);
+
         projector = new THREE.Projector();
         projector.unprojectVector(vector, camera);
         raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
@@ -87,6 +88,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         var vx = parseInt((event.clientX - renderer.domElement.offsetParent.offsetLeft - renderer.domElement.offsetLeft)) / renderer.domElement.width;
         var vy = parseInt((event.clientY - renderer.domElement.offsetParent.offsetTop - renderer.domElement.offsetTop)) / renderer.domElement.height;
         var vector = new THREE.Vector3((vx) * 2 - 1, -(vy) * 2 + 1, -0.5);
+
         projector = new THREE.Projector();
         projector.unprojectVector(vector, camera);
         raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
