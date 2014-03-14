@@ -5,7 +5,7 @@
 
 THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) {
 
-    var matt,matt1,matt2;
+    var matt, matt1, matt2;
     var matth = [];
     var drag;
     var dragging = false;
@@ -20,6 +20,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
     container.on('mousemove', onGizmoMouseMove);
     container.on('mouseup', onGizmoMouseUp);
     container.on('mousedown', onGizmoMouseDown);
+	container.on('mousewheel',onBla);
     AddGizmo(scene, 1)
     function onGizmoMouseUp(event) {
         event.preventDefault();
@@ -27,6 +28,23 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         if (otherControls)
             otherControls.enabled = true;
     }
+    
+    function onBla(event) {
+        UpdateScale();
+    }
+    
+    function UpdateScale()
+    {
+
+        if (INTERSECTED != null)
+        {
+            var dist = INTERSECTED.position.distanceTo(camera.position);
+            helperGizmo.scale = new THREE.Vector3(dist / 10, dist / 10, dist / 10);
+        }
+
+    }
+    
+
     function onGizmoMouseDown(event) {
         var vx = parseInt((event.clientX - renderer.domElement.offsetParent.offsetLeft - renderer.domElement.offsetLeft)) / renderer.domElement.width;
         var vy = parseInt((event.clientY - renderer.domElement.offsetParent.offsetTop - renderer.domElement.offsetTop)) / renderer.domElement.height;
@@ -80,6 +98,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         }
     }
     function onGizmoMouseMove(event) {
+	UpdateScale();
         event.preventDefault();
         if (dragging)
         {
@@ -325,5 +344,4 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
 
 
 };
-
 THREE.GizmoHelper.prototype = Object.create(THREE.EventDispatcher.prototype);
