@@ -13,14 +13,14 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
     this.helperGizmo;
     var targetGizmo = new THREE.Vector3(0, 0, 0);
     this.nameGizmo = 'helpergGIZMO';
-    var INTERSECTED1, INTERSECTED, dragging;
+    var targetGizmo0, INTERSECTED1, INTERSECTED, dragging;
     helperGizmo = new THREE.Object3D();
     var activate = {active: false};
     $.extend(THREE.Object3D(), activate);
     container.on('mousemove', onGizmoMouseMove);
     container.on('mouseup', onGizmoMouseUp);
     container.on('mousedown', onGizmoMouseDown);
-	container.on('mousewheel',onBla);
+    container.on('mousewheel', onBla);
     AddGizmo(scene, 1)
     function onGizmoMouseUp(event) {
         event.preventDefault();
@@ -28,11 +28,11 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         if (otherControls)
             otherControls.enabled = true;
     }
-    
+
     function onBla(event) {
         UpdateScale();
     }
-    
+
     function UpdateScale()
     {
 
@@ -43,7 +43,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         }
 
     }
-    
+
 
     function onGizmoMouseDown(event) {
         var vx = parseInt((event.clientX - renderer.domElement.offsetParent.offsetLeft - renderer.domElement.offsetLeft)) / renderer.domElement.width;
@@ -76,6 +76,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                         intersects0 = obj1;
                     }
                 }
+
             }
             if (intersects0)
             {
@@ -98,7 +99,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         }
     }
     function onGizmoMouseMove(event) {
-	UpdateScale();
+        UpdateScale();
         event.preventDefault();
         if (dragging)
         {
@@ -117,7 +118,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         {
             FindIntersectsG(helperGizmo);
         }
-        var dist = 99999999999999999;
+        var dist = Infinity;
         var vald;
 
         var gizmo_end = helperGizmo.scale.x / 2;
@@ -186,15 +187,15 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                 {
                     if (drag == 3 || drag == 4)
                     {
-                        targetGizmo = new THREE.Vector3(INTERSECTED.position.x, INTERSECTED1.point.y, INTERSECTED.position.z);
+                        targetGizmo = new THREE.Vector3(INTERSECTED.position.x, INTERSECTED1.point.y - targetGizmo0.y, INTERSECTED.position.z);
                     }
                     if (drag == 1 || drag == 2)
                     {
-                        targetGizmo = new THREE.Vector3(INTERSECTED.position.x, INTERSECTED.position.y, INTERSECTED1.point.z);
+                        targetGizmo = new THREE.Vector3(INTERSECTED.position.x, INTERSECTED.position.y, INTERSECTED1.point.z - targetGizmo0.z);
                     }
                     if (drag == 5 || drag == 6)
                     {
-                        targetGizmo = new THREE.Vector3(INTERSECTED1.point.x, INTERSECTED.position.y, INTERSECTED.position.z);
+                        targetGizmo = new THREE.Vector3(INTERSECTED1.point.x - targetGizmo0.x, INTERSECTED.position.y, INTERSECTED.position.z);
                     }
                     helperGizmo.position = targetGizmo;
                     INTERSECTED.position = targetGizmo
@@ -202,6 +203,8 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
 
                 if (!dragging)
                 {
+
+                    targetGizmo0 = new THREE.Vector3(INTERSECTED1.point.x - INTERSECTED.position.x, INTERSECTED1.point.y - INTERSECTED.position.y, INTERSECTED1.point.z - INTERSECTED.position.z);
 
                     if (dist < gizmo_end / 2)
                     {
@@ -242,6 +245,9 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                         $(this).css('cursor', 'auto');
                         dragging = false;
                         pre_dragging = false;
+                        matt.opacity = 0.25;
+                        matt2.opacity = 0.25;
+                        matt1.opacity = 0.25;
                     }
                 }
             }
