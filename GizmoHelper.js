@@ -10,6 +10,8 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
     var drag;
     var dragging = false;
     var pre_dragging = false;
+    var cursor = 'auto'
+    var pointer = true;
     this.helperGizmo;
     var targetGizmo = new THREE.Vector3(0, 0, 0);
     this.nameGizmo = 'helpergGIZMO';
@@ -114,10 +116,34 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
         //   var intersects0;
         intersects1 = new Array();
+        if (pointer)
+        {
+            FindIntersects(scene, 0);
+            if (intersects1.length > 0)
+            {
+                for (i = intersects1.length - 1; i >= 0; i--) {
+                    if (intersects1[ i ].object.name.substring(0, 11) != 'helperplane')
+                    {
+                        cursor = 'pointer'
+                        container.css('cursor', 'pointer');
+                    }
+                }
+            }
+            else
+            {
+                container.css('cursor', 'auto');
+                cursor = 'auto'
+
+            }
+        }
         if (helperGizmo.active)
         {
             FindIntersectsG(helperGizmo);
+
         }
+
+
+
         var dist = Infinity;
         var vald;
 
@@ -131,7 +157,6 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         var g4 = new THREE.Vector3(gx + 0, gy - gizmo_end, gz + 0);
         var g5 = new THREE.Vector3(gx + gizmo_end, gy + 0, gz + 0);
         var g6 = new THREE.Vector3(gx - gizmo_end, gy + 0, gz + 0);
-
 
         for (i = intersects1.length - 1; i >= 0; i--) {
             obj1 = intersects1[ i ];
@@ -210,7 +235,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                     {
 
                         drag = vald;
-                        $(this).css('cursor', 'move');
+                        container.css('cursor', 'move');
                         pre_dragging = true;
 
                         if ((vald == 5 || vald == 6))
@@ -242,7 +267,9 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                     }
                     else
                     {
-                        $(this).css('cursor', 'auto');
+
+                        container.css('cursor', cursor);
+
                         dragging = false;
                         pre_dragging = false;
                         matt.opacity = 0.25;
@@ -251,8 +278,25 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                     }
                 }
             }
+
         }
 
+    }
+    function FindIntersects(obj, level) {
+        var j;
+        for (j = obj.children.length - 1; j >= 0; j--) {
+
+            var intersects = raycaster.intersectObjects(obj.children);
+
+            if (obj.children[ j ].length > 0)
+            {
+                FindIntersects(obj.children[ j ], level++);
+            }
+            var i;
+            for (i = intersects.length - 1; i >= 0; i--) {
+                intersects1.push(intersects[i]);
+            }
+        }
     }
     function AddGizmo(obj, size)
     {
