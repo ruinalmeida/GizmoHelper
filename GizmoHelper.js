@@ -38,7 +38,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
     function UpdateScale()
     {
 
-        if (INTERSECTED !== null)
+        if (INTERSECTED)
         {
             var dist = INTERSECTED.position.distanceTo(camera.position);
             helperGizmo.scale = new THREE.Vector3(dist / 10, dist / 10, dist / 10);
@@ -115,7 +115,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
         //   var intersects0;
         intersects1 = new Array();
-        if (pointer)
+        if (pointer && !dragging)
         {
             FindIntersects(scene, 0);
             if (intersects1.length > 0)
