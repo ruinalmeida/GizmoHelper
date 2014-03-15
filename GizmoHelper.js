@@ -10,7 +10,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
     var drag;
     var dragging = false;
     var pre_dragging = false;
-    var cursor = 'auto'
+    var cursor = 'auto';
     var pointer = true;
     this.helperGizmo;
     var targetGizmo = new THREE.Vector3(0, 0, 0);
@@ -23,7 +23,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
     container.on('mouseup', onGizmoMouseUp);
     container.on('mousedown', onGizmoMouseDown);
     container.on('mousewheel', onBla);
-    AddGizmo(scene, 1)
+    AddGizmo(scene, 1);
     function onGizmoMouseUp(event) {
         event.preventDefault();
         dragging = false;
@@ -38,14 +38,13 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
     function UpdateScale()
     {
 
-        if (INTERSECTED != null)
+        if (INTERSECTED !== null)
         {
             var dist = INTERSECTED.position.distanceTo(camera.position);
             helperGizmo.scale = new THREE.Vector3(dist / 10, dist / 10, dist / 10);
         }
 
     }
-
 
     function onGizmoMouseDown(event) {
         var vx = parseInt((event.clientX - renderer.domElement.offsetParent.offsetLeft - renderer.domElement.offsetLeft)) / renderer.domElement.width;
@@ -70,7 +69,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
             for (i = intersects1.length - 1; i >= 0; i--) {
                 obj1 = intersects1[ i ];
 
-                if (intersects1[ i ].object.name.substring(0, 6) != 'helper')
+                if (intersects1[ i ].object.name.substring(0, 6) !== 'helper')
                 {
                     if (obj1.distance <= mindis)
                     {
@@ -90,7 +89,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                 helperGizmo.scale = new THREE.Vector3(dist / 10, dist / 10, dist / 10);
                 current_object = intersects0.object.name;
                 helperGizmo.position = intersects0.object.position;
-                INTERSECTED = intersects0.object
+                INTERSECTED = intersects0.object;
             }
             else
             {
@@ -122,9 +121,9 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
             if (intersects1.length > 0)
             {
                 for (i = intersects1.length - 1; i >= 0; i--) {
-                    if (intersects1[ i ].object.name.substring(0, 11) != 'helperplane')
+                    if (intersects1[ i ].object.name.substring(0, 11) !== 'helperplane')
                     {
-                        cursor = 'pointer'
+                        cursor = 'pointer';
                         container.css('cursor', 'pointer');
                     }
                 }
@@ -132,7 +131,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
             else
             {
                 container.css('cursor', 'auto');
-                cursor = 'auto'
+                cursor = 'auto';
 
             }
         }
@@ -141,8 +140,6 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
             FindIntersectsG(helperGizmo);
 
         }
-
-
 
         var dist = Infinity;
         var vald;
@@ -161,7 +158,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         for (i = intersects1.length - 1; i >= 0; i--) {
             obj1 = intersects1[ i ];
             vlad = 0;
-            if (intersects1[ i ].object.name.substring(0, 11) == 'helperplane')
+            if (intersects1[ i ].object.name.substring(0, 11) === 'helperplane')
             {
                 var d1 = intersects1[ i ].point.distanceTo(g1);
 
@@ -185,21 +182,21 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                     vald = 3;
                     INTERSECTED1 = intersects1[i];
                 }
-                var d4 = intersects1[ i ].point.distanceTo(g4)
+                var d4 = intersects1[ i ].point.distanceTo(g4);
                 if (d4 < dist)
                 {
                     dist = d4;
                     vald = 4;
                     INTERSECTED1 = intersects1[i];
                 }
-                var d5 = intersects1[ i ].point.distanceTo(g5)
+                var d5 = intersects1[ i ].point.distanceTo(g5);
                 if (d5 < dist)
                 {
                     dist = d5;
                     vald = 5;
                     INTERSECTED1 = intersects1[i];
                 }
-                var d6 = intersects1[ i ].point.distanceTo(g6)
+                var d6 = intersects1[ i ].point.distanceTo(g6);
 
                 if (d6 < dist)
                 {
@@ -210,20 +207,20 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
 
                 if (dragging)
                 {
-                    if (drag == 3 || drag == 4)
+                    if (drag === 3 || drag === 4)
                     {
                         targetGizmo = new THREE.Vector3(INTERSECTED.position.x, INTERSECTED1.point.y - targetGizmo0.y, INTERSECTED.position.z);
                     }
-                    if (drag == 1 || drag == 2)
+                    if (drag === 1 || drag === 2)
                     {
                         targetGizmo = new THREE.Vector3(INTERSECTED.position.x, INTERSECTED.position.y, INTERSECTED1.point.z - targetGizmo0.z);
                     }
-                    if (drag == 5 || drag == 6)
+                    if (drag === 5 || drag === 6)
                     {
                         targetGizmo = new THREE.Vector3(INTERSECTED1.point.x - targetGizmo0.x, INTERSECTED.position.y, INTERSECTED.position.z);
                     }
                     helperGizmo.position = targetGizmo;
-                    INTERSECTED.position = targetGizmo
+                    INTERSECTED.position = targetGizmo;
                 }
 
                 if (!dragging)
@@ -238,7 +235,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                         container.css('cursor', 'move');
                         pre_dragging = true;
 
-                        if ((vald == 5 || vald == 6))
+                        if ((vald === 5 || vald === 6))
                         {
                             matt.opacity = 1;
 
@@ -247,7 +244,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                         {
                             matt.opacity = 0.25;
                         }
-                        if ((vald == 3 || vald == 4))
+                        if ((vald === 3 || vald === 4))
                         {
                             matt2.opacity = 1;
                         }
@@ -255,7 +252,7 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
                         {
                             matt2.opacity = 0.25;
                         }
-                        if ((vald == 1 || vald == 2))
+                        if ((vald === 1 || vald === 2))
                         {
                             matt1.opacity = 1;
                         }
@@ -351,33 +348,33 @@ THREE.GizmoHelper = function(container, otherControls, renderer, camera, scene) 
         helperGizmo.rotation = new THREE.Euler(0, 0, 90 * Math.PI / 180, 'XYZ');
         var mesh1 = new THREE.Mesh(new THREE.CylinderGeometry(size / 80, size / 80, size, 4, 1, false), matt);
         mesh1.rotation = new THREE.Euler(0, 0, 0, 'XYZ');
-        mesh1.name = 'helperg1'
+        mesh1.name = 'helperg1';
         helperGizmo.add(mesh1);
 
         var mesh2 = new THREE.Mesh(new THREE.CylinderGeometry(size / 80, size / 80, size, 4, 1, false), matt1);
         mesh2.rotation = new THREE.Euler(90 * Math.PI / 180, 0, 0, 'XYZ');
-        mesh2.name = 'helperg2'
-        helperGizmo.add(mesh2)
+        mesh2.name = 'helperg2';
+        helperGizmo.add(mesh2);
 
         var mesh3 = new THREE.Mesh(new THREE.CylinderGeometry(size / 80, size / 80, size, 4, 1, false), matt2);
         mesh3.rotation = new THREE.Euler(0, 0, 90 * Math.PI / 180, 'XYZ');
-        mesh3.name = 'helperg3'
-        helperGizmo.add(mesh3)
+        mesh3.name = 'helperg3';
+        helperGizmo.add(mesh3);
 
         helperGizmo.position = new THREE.Vector3(0, 0, 0);
         var geomPlane = new THREE.PlaneGeometry(5000000, 5000000);
         var mesh4 = new THREE.Mesh(geomPlane, matth['helperplane1']);
         mesh4.rotation = new THREE.Euler(0, 0, 90 * Math.PI / 180, 'XYZ');
-        mesh4.name = 'helperplane1'
-        helperGizmo.add(mesh4)
+        mesh4.name = 'helperplane1';
+        helperGizmo.add(mesh4);
         var mesh5 = new THREE.Mesh(geomPlane, matth['helperplane2']);
         mesh5.rotation = new THREE.Euler(0, 90 * Math.PI / 180, 0, 'XYZ');
-        mesh5.name = 'helperplane2'
-        helperGizmo.add(mesh5)
+        mesh5.name = 'helperplane2';
+        helperGizmo.add(mesh5);
         var mesh6 = new THREE.Mesh(geomPlane, matth['helperplane3']);
         mesh6.rotation = new THREE.Euler(90 * Math.PI / 180, 0, 0, 'XYZ');
-        mesh6.name = 'helperplane3'
-        helperGizmo.add(mesh6)
+        mesh6.name = 'helperplane3';
+        helperGizmo.add(mesh6);
         obj.add(helperGizmo);
 
 
